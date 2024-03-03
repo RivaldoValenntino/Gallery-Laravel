@@ -54,7 +54,7 @@ class Photo extends Model
             });
         });
 
-        $query->when($searchTerm['categories'] ?? false, function ($query, $category) {
+        $query->when($searchTerm['category'] ?? false, function ($query, $category) {
             return $query->whereHas('categories', function ($query) use ($category) {
                 $query->where('slug', $category);
             });

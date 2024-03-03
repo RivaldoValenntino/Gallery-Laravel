@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/photos', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/photos/{photo:slug}', [\App\Http\Controllers\HomeController::class, 'show'])->name('show');
 Route::get('/album', [\App\Http\Controllers\HomeController::class, 'albumPage'])->name('album');
+Route::get('/categories', [\App\Http\Controllers\HomeController::class, 'categoriesPage'])->name('categories');
 
 // data - src = "{{ asset('storage/' . $post->gambar . '') }}"
 // Route::get('/albums/{record}/detail', [ViewAlbumDetail::class, 'handle'])->name('view-detail');
@@ -24,11 +25,6 @@ Route::get('/album', [\App\Http\Controllers\HomeController::class, 'albumPage'])
 
 // Route::get('/home', fn () => view('home'));
 
-Route::get('/categories', function () {
-    $title = "Daftar Kategori"; // Title yang ingin ditambahkan
-
-    return view('frontend.pages.categories', compact('title'));
-});
 
 Route::get('/', function (){
     $title = 'Home';

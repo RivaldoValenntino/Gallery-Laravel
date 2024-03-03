@@ -54,4 +54,11 @@ class HomeController extends Controller
         $title = "Album";
         return view('frontend.pages.albums', compact('albums', 'title'));
     }
+
+    public function categoriesPage()
+    {
+        $categories = Category::with('photos')->get();
+        $title = "Categories";
+        return view('frontend.pages.categories', compact('categories', 'title'));
+    }
 }
