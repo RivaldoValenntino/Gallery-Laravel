@@ -31,6 +31,8 @@ class EditProfile extends Page
 
     protected static string $view = 'filament.pages.edit-profile';
 
+    protected static ?string $title = 'User Profile';
+
 
     public function mount(): void
     {

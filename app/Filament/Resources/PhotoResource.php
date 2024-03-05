@@ -83,7 +83,7 @@ class PhotoResource extends Resource
                     FileUpload::make('gambar')
                         ->required()
                         ->image()
-                        ->optimize('webp')
+                    ->optimize('jpg')
                         ->maxSize(2048)
                         ->label('Upload Photo')
                         ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/gif'])

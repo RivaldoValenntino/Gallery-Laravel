@@ -94,14 +94,16 @@ class User extends Authenticatable implements MustVerifyEmail
         ];
     }
 
-    protected static function boot(){
+    protected static function booted()
+    {
         parent::boot();
-        static::updating(function ($model) {
+        static::updated(function ($model) {
             if ($model->isDirty('avatar') && ($model->getOriginal('avatar') !== null)) {
                 Storage::disk('public')->delete($model->getOriginal('avatar'));
             }
         });
     }
+    
     
     public function getAvatarAttribute(){
         return Storage::url($this->attributes['avatar']);
@@ -123,5 +125,9 @@ class User extends Authenticatable implements MustVerifyEmail
     public function hasLiked(Photo $photo)
     {
         return $this->likes()->where('photo_id', $photo->id)->exists();
+    }
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
     }
 }

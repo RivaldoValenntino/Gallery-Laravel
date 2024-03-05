@@ -59,5 +59,10 @@ class Photo extends Model
                 $query->where('slug', $category);
             });
         });
+        $query->when($searchTerm['author'] ?? false, function ($query, $author) {
+            return $query->whereHas('user', function ($query) use ($author) {
+                $query->where('username', $author);
+            });
+        });
     }
 }

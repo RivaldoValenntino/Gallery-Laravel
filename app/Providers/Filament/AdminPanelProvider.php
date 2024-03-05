@@ -32,14 +32,13 @@ class AdminPanelProvider extends PanelProvider
             ->path('dashboard')
             ->emailVerification()
             ->passwordReset()
+            ->darkMode(false)
             ->registration(Register::class)
             ->login(AuthLogin::class)
-            // ->profile()
             ->colors([
-                // 'primary' => Color::Amber,
                 'primary' => Color::Sky
-            ])
-            ->darkMode()
+        ])
+            ->font('Inter')
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
             ->pages([

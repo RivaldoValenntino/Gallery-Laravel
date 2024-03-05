@@ -55,37 +55,57 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Techonology',
         //     'slug' => 'techonology'
         // ]);
+        // Category::create([
+        //     'name' => 'Sains',
+        //     'slug' => 'sains'
+        // ]);
+        // Category::create([
+        //     'name' => 'Nature',
+        //     'slug' => 'nature'
+        // ]);
+        // Category::create([
+        //     'name' => 'Food',
+        //     'slug' => 'food'
+        // ]);
+        // Category::create([
+        //     'name' => 'Travel',
+        //     'slug' => 'travel'
+        // ]);
+        // Category::create([
+        //     'name' => 'Health',
+        //     'slug' => 'health'
+        // ]);
+        // Category::create([
+        //     'name' => 'Sports',
+        //     'slug' => 'sports'
+        // ]);
+        // Category::create([
+        //     'name' => 'Art',
+        //     'slug' => 'art'
+        // ]);
+        // Category::create([
+        //     'name' => 'Entertainment',
+        //     'slug' => 'entertainment'
+        // ]);
         Category::create([
-            'name' => 'Sains',
-            'slug' => 'sains'
+            'name' => 'Photography',
+            'slug' => 'photography'
         ]);
         Category::create([
-            'name' => 'Nature',
-            'slug' => 'nature'
+            'name' => 'Design',
+            'slug' => 'design'
         ]);
         Category::create([
-            'name' => 'Food',
-            'slug' => 'food'
+            'name' => 'Film',
+            'slug' => 'film'
         ]);
         Category::create([
-            'name' => 'Travel',
-            'slug' => 'travel'
+            'name' => 'Memes',
+            'slug' => 'memes'
         ]);
         Category::create([
-            'name' => 'Health',
-            'slug' => 'health'
-        ]);
-        Category::create([
-            'name' => 'Sports',
-            'slug' => 'sports'
-        ]);
-        Category::create([
-            'name' => 'Art',
-            'slug' => 'art'
-        ]);
-        Category::create([
-            'name' => 'Entertainment',
-            'slug' => 'entertainment'
+            'name' => 'Hollywood',
+            'slug' => 'hollywood'
         ]);
     }
 }

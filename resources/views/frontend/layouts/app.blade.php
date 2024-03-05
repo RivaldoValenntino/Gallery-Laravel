@@ -17,30 +17,23 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
-
 <body>
-    {{-- <div class="loader">
+    {{-- <div class="loader z-[999]">
         <div class="bg-white fixed inset-0 flex items-center justify-center h-screen z-[999] w-full">
             <div class="flex gap-2">
-                <div class='flex space-x-2 justify-center items-center bg-white h-screen dark:invert'>
+                <div class='flex space-x-2 justify-center items-center bg-transparent dark:invert z-[999]'>
                     <span class='sr-only'>Loading...</span>
-                    <div class='h-8 w-8 bg-sky-500 rounded-full animate-bounce [animation-delay:-0.3s]'></div>
-                    <div class='h-8 w-8 bg-sky-500 rounded-full animate-bounce [animation-delay:-0.15s]'></div>
-                    <div class='h-8 w-8 bg-sky-500 rounded-full animate-bounce'></div>
+                    <div class='h-8 w-8 bg-sky-500 rounded-full animate-bounce [animation-delay:-0.3s] z-[999]'></div>
+                    <div class='h-8 w-8 bg-sky-500 rounded-full animate-bounce [animation-delay:-0.15s] z-[999]'></div>
+                    <div class='h-8 w-8 bg-sky-500 rounded-full animate-bounce z-[999]'></div>
                 </div>
             </div>
         </div>
     </div> --}}
     <div class="flex h-screen flex-col justify-between container">
         <div class="content">
-            <div class="bottom-navbar lg:hidden">
-                @include('frontend.partials.bottom-navbar')
-            </div>
-
-            <div class="top-navbar hidden lg:flex">
-                @include('frontend.partials.top-navbar')
-            </div>
             <main class="font-noto-sans">
+                @include('frontend.partials.navbar')
                 @yield('content')
             </main>
         </div>
@@ -52,7 +45,6 @@
             }, 3000)
         })
     </script>
-   
 </body>
 
 </html>

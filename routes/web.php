@@ -2,6 +2,7 @@
 
 use App\Filament\Pages\AlbumDetail;
 use App\Filament\Pages\ViewAlbumDetail;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,15 +16,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 Route::get('/photos', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/photos/author/{photo:user_id}', [\App\Http\Controllers\HomeController::class, 'author'])->name('author');
 Route::get('/photos/{photo:slug}', [\App\Http\Controllers\HomeController::class, 'show'])->name('show');
-Route::get('/album', [\App\Http\Controllers\HomeController::class, 'albumPage'])->name('album');
+Route::get('/albums', [\App\Http\Controllers\HomeController::class, 'albumsPage'])->name('album');
 Route::get('/categories', [\App\Http\Controllers\HomeController::class, 'categoriesPage'])->name('categories');
-
-// data - src = "{{ asset('storage/' . $post->gambar . '') }}"
-// Route::get('/albums/{record}/detail', [ViewAlbumDetail::class, 'handle'])->name('view-detail');
-
-
-// Route::get('/home', fn () => view('home'));
+Route::get('/photos/tag/{tag}', [App\Http\Controllers\HomeController::class, 'showByTag'])->name('photos.tag');
+Route::get('/photos/authors/{user:username}', function (User $user) {
+    $photos = $user->posts()->with('category')->paginate(9);
+    return view('frontend.pages.author', [
+        'title' => 'Author Posts',
+        'user' => $user,
+        'photos' => $photos,
+    ]);
+});
 
 
 Route::get('/', function (){
@@ -32,5 +37,5 @@ Route::get('/', function (){
 });
 Route::get('/home', function (){
     $title = 'Home';
-    return view('frontend.pages.home');
+    return view('frontend.pages.home', compact('title'));
 });
