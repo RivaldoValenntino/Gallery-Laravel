@@ -27,7 +27,7 @@ class EditProfile extends Page
 
     public ?array $data = [];
 
-    protected static ?string $navigationIcon = 'heroicon-o-user';
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
     protected static string $view = 'filament.pages.edit-profile';
 

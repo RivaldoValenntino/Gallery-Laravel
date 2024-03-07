@@ -30,7 +30,6 @@ Route::get('/photos/authors/{user:username}', function (User $user) {
     ]);
 });
 
-
 Route::get('/', function (){
     $title = 'Home';
     return view('frontend.pages.home', compact('title'));
@@ -38,4 +37,11 @@ Route::get('/', function (){
 Route::get('/home', function (){
     $title = 'Home';
     return view('frontend.pages.home', compact('title'));
+});
+Route::get('/login', function () {
+    return redirect(route('filament.admin.auth.login'));
+})->name('login');
+
+Route::fallback(function () {
+    return view('frontend.pages.403');
 });

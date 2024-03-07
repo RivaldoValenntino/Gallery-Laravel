@@ -1,7 +1,7 @@
 <nav x-data="{ scrolled: false }" x-init="window.addEventListener('scroll', () => { scrolled = window.scrollY > 10 })" :class="{ 'border-b shadow-lg  dark:border-0': scrolled }"
     class="bg-white border-gray-200 dark:bg-gray-900 fixed top-0 w-full z-[999]">
     <div class="max-w-full flex flex-wrap items-center justify-between mx-auto px-5">
-        <a href="https://flowbite.com/" class="flex items-center space-x-3 rtl:space-x-reverse">
+        <a href="/" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="{{ asset('logo/logo.svg') }}" class="h-20" alt="Logo" />
         </a>
         <div class="flex items-center md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
@@ -10,33 +10,84 @@
                 id="user-menu-button" aria-expanded="false" data-dropdown-toggle="user-dropdown"
                 data-dropdown-placement="bottom">
                 <span class="sr-only">Open user menu</span>
-                @auth()
+                @auth
                     @if (Auth::user()->avatar)
-                        <img class="w-8 h-8 rounded-full" src="{{ asset(Auth::user()->avatar) }}" alt="user photo">
+                        <img class="w-8 h-8 rounded-full" src="{{ asset(Auth::user()->avatar) }}"
+                            alt="{{ Auth::user()->name }}">
+                    @elseif (Auth::user()->avatar !== '/storage/')
+                        <img class="w-8 h-8 rounded-full" src="{{ asset('logo/default-avatar.png') }}" alt="default">
                     @endif
                 @endauth
-                @guest()
-                    <img class="w-8 h-8 rounded-full" src="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                        alt="user photo">
+                @guest
+                    <img class="w-8 h-8 rounded-full" src="{{ asset('logo/default-avatar.png') }}" alt="user photo">
                 @endguest
             </button>
             <!-- Dropdown menu -->
             <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-gray-700 dark:divide-gray-600"
                 id="user-dropdown">
                 <div class="px-4 py-3">
-                    <span class="block text-sm text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
-                    <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ Auth::user()->email }}</span>
+                    @auth
+                        <span class="block text-sm text-gray-900 dark:text-white">{{ Auth::user()->name }}</span>
+                        <span
+                            class="block text-sm  text-gray-500 truncate dark:text-gray-400">{{ Auth::user()->email }}</span>
+                    @endauth
+                    @guest
+                        <span class="block text-sm text-gray-900 dark:text-white">Guest@example.com</span>
+                        <span class="block text-sm  text-gray-500 truncate dark:text-gray-400">guest</span>
+                    @endguest
                 </div>
                 <ul class="py-2" aria-labelledby="user-menu-button">
-                  
-                    <li>
-                        <form action="{{ filament()->getLogoutUrl() }}" method="POST">
-                            @csrf
+
+                    @auth
+                        <li>
                             <button
-                                class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200">Sign
-                                Out</button>
-                        </form>
-                    </li>
+                                class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200">
+                                <a href="/photos">Explore</a>
+                            </button>
+                        </li>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200">
+                                <a href="/photos">Categories</a>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200">
+                                <a href="/dashboard">Create</a>
+                            </button>
+                        </li>
+                        <li>
+                            <form action="{{ filament()->getLogoutUrl() }}" method="POST">
+                                @csrf
+                                <button
+                                    class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200">Sign
+                                    Out</button>
+                            </form>
+                        </li>
+                    @endauth
+                    @guest
+                        <li>
+                            <button
+                                class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200">
+                                <a href="/photos">Explore</a>
+                            </button>
+                        </li>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200">
+                                <a href="/photos">Categories</a>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                class="w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200">
+                                <a href="/dashboard">Create</a>
+                            </button>
+                        </li>
+                    @endguest
                 </ul>
             </div>
             <button data-collapse-toggle="navbar-user" type="button"

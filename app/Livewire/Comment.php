@@ -20,7 +20,7 @@ class Comment extends Component
     public function render()
     {
         return view('livewire.comment', [
-            'comments' => ModelsComment::where('photo_id', $this->photo->id)->with('user')->get(),
+            'comments' => ModelsComment::where('photo_id', $this->photo->id)->with('user')->latest()->get(),
             'total_comments' => ModelsComment::where('photo_id', $this->photo->id)->count()
         ]);
     }
@@ -29,6 +29,8 @@ class Comment extends Component
     {
         $this->validate([
             'isi_komentar' => 'required'
+        ], [
+            'isi_komentar.required' => 'Komentar tidak boleh kosong'
         ]);
         $comment = ModelsComment::create([
             'isi_komentar' => $this->isi_komentar,
@@ -36,8 +38,8 @@ class Comment extends Component
             'user_id' => auth()->user()->id
         ]);
 
-        $this->isi_komentar = '';
         if ($comment) {
+            $this->isi_komentar = '';
             Toastr::success('Komentar Berhasil Ditambahkan', 'Success');
             return redirect()->back();
         }

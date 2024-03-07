@@ -42,7 +42,7 @@ class PhotoResource extends Resource
 {
     protected static ?string $model = Photo::class;
 
-    protected static ?string $navigationIcon = 'heroicon-s-photo';
+    protected static ?string $navigationIcon = 'heroicon-o-photo';
 
 
 
@@ -65,18 +65,17 @@ class PhotoResource extends Resource
                         ->unique(Photo::class, 'slug', ignoreRecord: true),
                     Textarea::make('deskripsi')
                         ->required()
-                        ->maxLength(65535),
+                ->maxLength(150),
                     TagsInput::make('tags')
                         ->required()
                         ->columns(2),
                     Select::make('category_id')
                         ->relationship('categories', 'name') // 'categories' adalah nama relasi yang ditentukan di dalam model Photo, 'name' adalah kolom yang ingin ditampilkan dalam dropdown
-                        ->required()
+                ->required() 
                         ->label('Category'),
                     Select::make('album_id')
                         ->options(fn () => auth()->user()->albums->pluck('nama_album', 'id'))
-                        ->default(fn () => auth()->user()->albums->first()?->id)
-                        ->required()
+                    ->default(fn () => auth()->user()->albums->first()?->id)
                         ->label('Album'),
                     Hidden::make('user_id')
                         ->default(auth()->id()),

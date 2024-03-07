@@ -53,6 +53,9 @@ class Photo extends Model
                 $query->where('judul', 'like', '%' . $search . '%');
             });
         });
+        $query->when($searchTerm['tag'] ?? false, function ($query, $tag) {
+            return $query->whereJsonContains('tags', [$tag]);
+        });
 
         $query->when($searchTerm['category'] ?? false, function ($query, $category) {
             return $query->whereHas('categories', function ($query) use ($category) {

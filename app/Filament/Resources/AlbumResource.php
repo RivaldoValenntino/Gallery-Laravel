@@ -61,6 +61,7 @@ class AlbumResource extends Resource
                         ->unique(Album::class, 'slug', ignoreRecord: true),
                     Textarea::make('deskripsi')
                         ->label('Description')
+                    ->maxLength(255)
                         ->required(),
                     FileUpload::make('cover')
                         ->label('Cover')
@@ -104,6 +105,7 @@ class AlbumResource extends Resource
                     ->sortable(),
                 TextColumn::make('deskripsi')
                     ->searchable()
+            ->limit(20)
                     ->sortable(),
                 ToggleColumn::make('status')
                     ->onIcon('heroicon-s-eye')

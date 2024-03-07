@@ -16,14 +16,14 @@ class HomeController extends Controller
             'search' => request('search'),
             'category' => request('category'),
             'author' => request('author'),
+            'tag' => request('tag'),
         ];
 
         $posts = Photo::with(['categories', 'user'])
             ->search($searchTerm)
             ->latest()
-            ->paginate(9)
-            ->withQueryString();
-
+            ->where('status', 1)
+            ->get();
         $title = 'All Photos';
 
         if (request('search')) {
@@ -39,7 +39,9 @@ class HomeController extends Controller
             $author = User::firstWhere('username', request('author'));
             $title = 'Posted by ' . $author->name;
         }
-
+        if (request('tag')) {
+            $title = 'Tag : ' . ucfirst(request('tag'));
+        }
         return view('frontend.pages.index', [
             "title" => $title,
             "posts" => $posts
@@ -47,11 +49,9 @@ class HomeController extends Controller
     }
     public function show(Photo $photo)
     {
-        $photo = Photo::where('slug', $photo->slug)->with('user')->first();
-        $photo->increment('views');
+        $photo = Photo::where('slug', $photo->slug)->with('user')->first() && $photo->status == 1 ? $photo : abort(404);
+        // $photo->increment('views');
         $title = $photo->judul;
-        // return $photo->user->avatar;
-        // return $photo->gambar;
         $allPhoto = Photo::where('category_id', $photo->category_id)->whereNotIn('id', [$photo->id])
         ->get();
         // return $allPhoto;
@@ -72,18 +72,8 @@ class HomeController extends Controller
         $tagArray = explode(',', $tag);
         $tagName = implode(', ', $tagArray);
 
-        $searchTerm = [
-            'search' => request('search'),
-            'tag' => $tag,
-        ];
-
-        $photos = Photo::with(['categories', 'user'])
-            ->search($searchTerm)
-            ->latest()
-            ->paginate(9)
-            ->withQueryString();
+        $photos = Photo::whereJsonContains('tags', $tag)->with('user')->paginate(9);
 
         return view('frontend.pages.tag', compact('photos', 'title', 'tagName'));
     }
-
 }

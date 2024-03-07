@@ -1,4 +1,4 @@
-   <form class="lg:w-1/2 w-dvw px-4 md:w-3/4 xl:w-1/2 mx-auto" action="/photos">
+   <form class="lg:w-1/2 w-dvw px-4 md:w-3/4 xl:w-1/2 mx-auto mt-4" action="/photos">
        <label for="default-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
        <div class="relative">
            <div class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
@@ -14,9 +14,12 @@
            @if (request('author'))
                <input type="hidden" name="author" value="{{ request('author') }}">
            @endif
+           @if (request('tag'))
+               <input type="hidden" name="tag" value="{{ request('tag') }}">
+           @endif
            <input type="search" id="default-search"
                class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-               placeholder="Search..." name="search" value="{{ request('search') }}" />
+               placeholder="Search Photos ....." name="search" value="{{ request('search') }}" />
            <button type="submit"
                class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
        </div>
