@@ -42,7 +42,10 @@ class AlbumResource extends Resource
 
     protected static ?string $navigationLabel = 'Manage Album';
 
-
+    public static function canViewAny(): bool
+    {
+        return auth()->user()->roles == 'users';
+    }
     public static function form(Form $form): Form
     {
         return $form
