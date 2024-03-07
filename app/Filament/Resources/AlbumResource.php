@@ -44,7 +44,7 @@ class AlbumResource extends Resource
 
     public static function canViewAny(): bool
     {
-        return auth()->user()->roles == 'users';
+        return auth()->user()->roles == 'user';
     }
     public static function form(Form $form): Form
     {
