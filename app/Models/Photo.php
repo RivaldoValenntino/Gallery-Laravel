@@ -46,6 +46,9 @@ class Photo extends Model
     {
         return $this->belongsToMany(User::class, 'like_photo')->withTimestamps();
     }
+    public function comments(){
+        return $this->hasMany(Comment::class, 'photo_id');
+    }
     public function scopeSearch($query, array $searchTerm)
     {
         $query->when($searchTerm['search'] ?? false, function ($query, $search) {

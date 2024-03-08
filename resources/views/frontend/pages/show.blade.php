@@ -3,13 +3,10 @@
     <section class="grid place-content-center lg:mt-28 mt-20 pb-2">
         <div class="px-4">
             <div class="flex flex-col lg:flex-row lg:space-x-6 max-w-screen-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
-                <!-- Column 1: Gambar -->
-                {{-- Img FullScreen --}}
                 <div id="img-viewer">
                     <span class="close" onclick="close_modal()">&times;</span>
                     <img class="modal-content" id="full-image">
                 </div>
-                {{-- End Img FullScreen --}}
                 <div class="lg:w-1/2 relative group font-nunito">
                     <img src="{{ asset('storage/' . $photo->gambar . '') }}" alt="{{ $photo->judul }}"
                         class="w-full h-full object-cover rounded-lg img-source group-hover:brightness-[0.3] transition duration-300">
@@ -39,7 +36,7 @@
                     </div>
                 </div>
 
-                <!-- Column 2: Informasi -->
+                {{-- Informasi Foto --}}
                 <div class="lg:w-1/2 mt-6 lg:mt-0">
                     <h2 class="text-2xl font-bold mb-2">{{ $photo->judul }}</h2>
                     <p class="text-gray-700 mb-4">{{ $photo->deskripsi }}</p>
@@ -70,33 +67,30 @@
                             </div>
                         </div>
                         <div class="flex gap-2 px-6 justify-center items-center">
-                            {{-- <span class="text-black">
+                            <span class="text-black flex gap-1">
                                 <i class="bi bi-eye"></i> {{ $photo->views }}
-                            </span> --}}
+                            </span>
                             <livewire:like-button :photo="$photo" :key="$photo->id" />
                         </div>
                     </div>
 
-                    <!-- Comment Section -->
+                    {{-- Komentar --}}
                     <livewire:comment :photo="$photo" :key="$photo->id" :id="$photo->id" />
-                    <!-- End Form Komentar -->
-
-                    <!-- Tombol Lainnya -->
 
                 </div>
             </div>
-            <h1 class="lg:text-2xl text-xl font-bold text-center mt-4 mb-2">You may also like</h1>
-            <div class="px-2 mr-2 md:px-4 md:mr-4 lg:px-4 lg:mr-4 xl:mr-4 xl:px-4 pb-12">
+            <h1 class="lg:text-2xl text-xl font-bold text-center mt-4 mb-2">{{ $allPhoto === null ? 'Photos You May Like' : 'No suggested photos are available' }}</h1>
+            <div class="px-2 mr-2 md:px-4 md:mr-4 lg:px-4 lg:mr-4 xl:mr-4 xl:px-4 pb-12 w-full">
                 <div
                     class="columns-2 gap-2 md:columns-3 lg:columns-3 xl:columns-6 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-8">
-                    @foreach ($allPhoto as $suggestedPhoto)
-                        <a href="/photos/{{ $suggestedPhoto->slug }}">
-                            <div>
-                                <img class="max-w-full rounded-lg m-2 hover:scale-90 transition duration-300 hover:brightness-75"
-                                    src="{{ asset('storage/' . $suggestedPhoto->gambar . '') }}" alt="">
-                            </div>
-                        </a>
-                    @endforeach
+                        @foreach ($allPhoto as $suggestedPhoto)
+                            <a href="/photos/{{ $suggestedPhoto->slug }}">
+                                <div>
+                                    <img class="max-w-full rounded-lg m-2 hover:scale-90 transition duration-300 hover:brightness-75"
+                                        src="{{ asset('storage/' . $suggestedPhoto->gambar . '') }}" alt="">
+                                </div>
+                            </a>
+                        @endforeach
                 </div>
             </div>
         </div>

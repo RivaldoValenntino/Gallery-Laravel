@@ -87,25 +87,6 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Entertainment',
         //     'slug' => 'entertainment'
         // ]);
-        Category::create([
-            'name' => 'Photography',
-            'slug' => 'photography'
-        ]);
-        Category::create([
-            'name' => 'Design',
-            'slug' => 'design'
-        ]);
-        Category::create([
-            'name' => 'Film',
-            'slug' => 'film'
-        ]);
-        Category::create([
-            'name' => 'Memes',
-            'slug' => 'memes'
-        ]);
-        Category::create([
-            'name' => 'Hollywood',
-            'slug' => 'hollywood'
-        ]);
+   
     }
 }

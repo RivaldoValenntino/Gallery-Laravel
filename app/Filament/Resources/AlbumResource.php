@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use Filament\Tables;
 use App\Models\Album;
 use Filament\Forms\Set;
@@ -20,15 +19,8 @@ use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\AlbumResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\AlbumResource\RelationManagers;
-use App\Models\Photo;
-use Filament\Actions\ViewAction;
 use Filament\Forms\Components\Select;
-use Filament\Infolists\Components\Grid;
 use Filament\Infolists\Components\ImageEntry;
-use Filament\Infolists\Components\Section as ComponentsSection;
-use Filament\Infolists\Components\TextEntry;
 use Filament\Infolists\Infolist;
 use Filament\Tables\Columns\ToggleColumn;
 
@@ -64,7 +56,7 @@ class AlbumResource extends Resource
                         ->unique(Album::class, 'slug', ignoreRecord: true),
                     Textarea::make('deskripsi')
                         ->label('Description')
-                    ->maxLength(255)
+                        ->maxLength(255)
                         ->required(),
                     FileUpload::make('cover')
                         ->label('Cover')
@@ -76,9 +68,9 @@ class AlbumResource extends Resource
                         ->optimize('webp')
                         ->directory('albums'),
                     Select::make('category_id')
-                    ->relationship('category', 'name') // 'categories' adalah nama relasi yang ditentukan di dalam model Photo, 'name' adalah kolom yang ingin ditampilkan dalam dropdown
-                    ->required()
-                    ->label('Category'),
+                        ->relationship('category', 'name')
+                        ->required()
+                        ->label('Category'),
                     Toggle::make('status')
                         ->label('Status')
                         ->inline(false)
@@ -108,7 +100,7 @@ class AlbumResource extends Resource
                     ->sortable(),
                 TextColumn::make('deskripsi')
                     ->searchable()
-            ->limit(20)
+                    ->limit(20)
                     ->sortable(),
                 ToggleColumn::make('status')
                     ->onIcon('heroicon-s-eye')
@@ -119,10 +111,7 @@ class AlbumResource extends Resource
                     ->searchable(),
                 TextColumn::make('photos_count')
                     ->label('Photos')
-                    ->getStateUsing(fn (Album $record) => $record->photos->count()),
-                // TextColumn::make('last_photo_created_at')
-                // ->label('Last Photo Created At')
-                // ->getStateUsing(fn (Album $record) => $record->photos->sortByDesc('created_at')->first()?->created_at),
+                    ->getStateUsing(fn (Album $record) => $record->photos->count())
             ])
             ->filters([
                 //
@@ -155,7 +144,7 @@ class AlbumResource extends Resource
     {
         return $infolist
             ->schema([
-               ImageEntry::make('photos.gambar')
+                ImageEntry::make('photos.gambar')
             ]);
     }
 }

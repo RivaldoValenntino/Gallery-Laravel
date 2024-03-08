@@ -19,11 +19,24 @@ class HomeController extends Controller
             'tag' => request('tag'),
         ];
 
-        $posts = Photo::with(['categories', 'user'])
-            ->search($searchTerm)
-            ->latest()
-            ->where('status', 1)
-            ->get();
+        $query = Photo::with(['categories', 'user'])->search($searchTerm)->where('status', 1);
+
+        switch (request('sort_by')) {
+            case 'likes':
+                $query->withCount('likes')->orderByDesc('likes_count');
+                break;
+            case 'comments':
+                $query->withCount('comments')->orderByDesc('comments_count');
+                break;
+            case 'views':
+                $query->orderByDesc('views');
+                break;
+            default:
+                $query->latest();
+                break;
+        }
+
+        $photos = $query->get();
         $title = 'All Photos';
 
         if (request('search')) {
@@ -44,17 +57,16 @@ class HomeController extends Controller
         }
         return view('frontend.pages.index', [
             "title" => $title,
-            "posts" => $posts
+            "photos" => $photos
         ]);
     }
     public function show(Photo $photo)
     {
         $photo = Photo::where('slug', $photo->slug)->with('user')->first() && $photo->status == 1 ? $photo : abort(404);
-        // $photo->increment('views');
+        $photo->increment('views');
         $title = $photo->judul;
         $allPhoto = Photo::where('category_id', $photo->category_id)->whereNotIn('id', [$photo->id])
         ->get();
-        // return $allPhoto;
         return view('frontend.pages.show', compact('photo', 'title', 'allPhoto'));
     }
 
@@ -72,7 +84,7 @@ class HomeController extends Controller
         $tagArray = explode(',', $tag);
         $tagName = implode(', ', $tagArray);
 
-        $photos = Photo::whereJsonContains('tags', $tag)->with('user')->paginate(9);
+        $photos = Photo::whereContains('tags', $tag)->with('user');
 
         return view('frontend.pages.tag', compact('photos', 'title', 'tagName'));
     }

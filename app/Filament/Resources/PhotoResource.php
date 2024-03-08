@@ -2,7 +2,6 @@
 
 namespace App\Filament\Resources;
 
-use Filament\Forms;
 use Filament\Tables;
 use App\Models\Photo;
 use Filament\Forms\Form;
@@ -12,31 +11,19 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Textarea;
-use Filament\Tables\Actions\EditAction;
-use Filament\Tables\Actions\ViewAction;
-use Filament\Tables\Columns\IconColumn;
-use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TagsInput;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
-use Filament\Tables\Actions\BulkActionGroup;
-use Filament\Tables\Actions\DeleteBulkAction;
 use App\Filament\Resources\PhotoResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\PhotoResource\Pages\EditPhoto;
-use App\Filament\Resources\PhotoResource\Pages\ViewPhoto;
-use App\Filament\Resources\PhotoResource\Pages\ListPhotos;
-use App\Filament\Resources\PhotoResource\RelationManagers;
-use App\Filament\Resources\PhotoResource\Pages\CreatePhoto;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Set;
-use Filament\Tables\Columns\ToggleColumn;
-use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
+
 
 class PhotoResource extends Resource
 {
@@ -68,24 +55,24 @@ class PhotoResource extends Resource
                         ->unique(Photo::class, 'slug', ignoreRecord: true),
                     Textarea::make('deskripsi')
                         ->required()
-                ->maxLength(150),
+                        ->maxLength(150),
                     TagsInput::make('tags')
                         ->required()
                         ->columns(2),
                     Select::make('category_id')
                         ->relationship('categories', 'name') // 'categories' adalah nama relasi yang ditentukan di dalam model Photo, 'name' adalah kolom yang ingin ditampilkan dalam dropdown
-                ->required() 
+                        ->required()
                         ->label('Category'),
                     Select::make('album_id')
                         ->options(fn () => auth()->user()->albums->pluck('nama_album', 'id'))
-                    ->default(fn () => auth()->user()->albums->first()?->id)
+                        ->default(fn () => auth()->user()->albums->first()?->id)
                         ->label('Album'),
                     Hidden::make('user_id')
                         ->default(auth()->id()),
                     FileUpload::make('gambar')
                         ->required()
                         ->image()
-                    ->optimize('jpg')
+                        ->optimize('jpg')
                         ->maxSize(2048)
                         ->label('Upload Photo')
                         ->acceptedFileTypes(['image/png', 'image/jpeg', 'image/gif'])
@@ -112,16 +99,19 @@ class PhotoResource extends Resource
                 $query->where('user_id', $user_id);
             })
             ->columns([
-                Tables\Columns\TextColumn::make('judul')
+                TextColumn::make('judul')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('deskripsi')
+                TextColumn::make('deskripsi')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('tags')
+                TextColumn::make('tags')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('deskripsi')
+                TextColumn::make('deskripsi')
                     ->limit(20)
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('gambar')
+                TextColumn::make('likes_count')->counts('likes')
+                    ->label('Likes')
+                    ->sortable(),
+                ImageColumn::make('gambar')
                     ->searchable(),
                 ToggleColumn::make('status')
                     ->label('Privacy')
@@ -129,7 +119,7 @@ class PhotoResource extends Resource
                     ->offIcon('heroicon-s-lock-closed')
                     ->onColor('success')
                     ->offColor('danger'),
-                Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -165,18 +155,8 @@ class PhotoResource extends Resource
         return [
             'index' => Pages\ListPhotos::route('/'),
             'create' => Pages\CreatePhoto::route('/create'),
-            'view' => Pages\ViewPhoto::route('/{record}', function (Photo $photo) {
-                if ($photo->user_id !== Auth::id()) {
-                    abort(403, 'Unauthorized');
-                }
-                return $photo;
-            }),
-            'edit' => Pages\EditPhoto::route('/{record}/edit', function (Photo $photo) {
-                if ($photo->user_id !== Auth::id()) {
-                    abort(403, 'Unauthorized');
-                }
-                return $photo;
-            }),
+            'view' => Pages\ViewPhoto::route('/{record}'),
+            'edit' => Pages\EditPhoto::route('/{record}/edit'),
         ];
     }
 }

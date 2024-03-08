@@ -4,7 +4,6 @@ $(function () {
     }, 3000);
 });
 $(document).ready(function () {
-    // Fungsi untuk tampilan penuh
     function full_view(element) {
         const src = $(element)
             .closest(".relative")
@@ -16,31 +15,26 @@ $(document).ready(function () {
         disableScroll();
     }
 
-    // Fungsi untuk menutup modal
     function close_modal() {
         $("#img-viewer").hide();
         $("body").removeClass("full-screen");
         enableScroll();
     }
 
-    // Fungsi untuk menonaktifkan scroll
     function disableScroll() {
         $(window).on("scroll.disableScroll", function () {
             $(window).scrollTop(0);
         });
     }
 
-    // Fungsi untuk mengaktifkan scroll
     function enableScroll() {
         $(window).off("scroll.disableScroll");
     }
 
-    // Memanggil fungsi full_view ketika tombol di klik
     $(".btn-zoom").on("click", function () {
         full_view(this);
     });
 
-    // Memanggil fungsi close_modal ketika tombol close di klik
     $(".close").on("click", function () {
         close_modal();
     });
@@ -66,4 +60,13 @@ $(document).ready(function () {
         });
         img.attr("src", img.attr("data-src"));
     });
+});
+
+document.getElementById("dropdown").addEventListener("click", function (event) {
+    if (event.target.tagName === "BUTTON") {
+        const selectedOption = event.target.innerText.toLowerCase();
+        const currentUrl = new URL(window.location.href);
+        currentUrl.searchParams.set("sort_by", selectedOption);
+        window.location.href = currentUrl.href;
+    }
 });

@@ -37,7 +37,7 @@ class CategoryResource extends Resource
             ->afterStateUpdated(function (Set $set, $state) {
                 $set('slug', Str::slug($state));
             }),
-                Forms\Components\TextInput::make('cover')
+            Forms\Components\FileUpload::make('cover')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('slug')
                     ->required()
