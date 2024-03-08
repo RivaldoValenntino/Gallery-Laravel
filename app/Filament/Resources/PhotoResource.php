@@ -111,6 +111,9 @@ class PhotoResource extends Resource
                 TextColumn::make('likes_count')->counts('likes')
                     ->label('Likes')
                     ->sortable(),
+                TextColumn::make('comments_count')->counts('comments')
+                    ->label('Comments')
+                    ->sortable(),
                 ImageColumn::make('gambar')
                     ->searchable(),
                 ToggleColumn::make('status')
