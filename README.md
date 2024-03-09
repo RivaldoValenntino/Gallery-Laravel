@@ -4,6 +4,22 @@
 
 Gallery Photo RPL was built with Laravel Filament Version 3 including TALL STACK (Tailwind,AlpineJS,Laravel,Livewire). This Application was created for UJIKOM (Uji Kompetensi Keahlian) Bakti Nusantara High 666 Vocational Bandung, March 2024
 
+## Installation
+
+Open project and run this command
+
+```
+$ composer install 
+```
+also run
+```
+$ npm install
+```
+
+- Require PHP ^8.2
+- Node JS v21.5.0
+- NPM v10.2.4
+
 ## Preview Application
 
 ![Screenshot (154)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/72c3798d-260a-41fe-b112-8e9fcb832433)
@@ -21,21 +37,3 @@ Responsive Mode
 ![iPhone-13-PRO-127 0 0 1 (6)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/c4ce92d1-e44b-4f7d-b380-db0e7d29d8c3)
 ![iPhone-13-PRO-127 0 0 1 (5)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/294a9fe7-b27a-4a94-a41c-bbb3b1220334)
 ![iPhone-13-PRO-127 0 0 1 (4)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/a48d0ab0-8416-439b-ad2d-4665e4d8ac0f)
-
-
-## Installation
-
-Open project and run this command
-
-```
-$ composer install 
-```
-also run
-```
-$ npm install
-```
-
-- Require PHP ^8.2
-- Node JS v21.5.0
-- NPM v10.2.4
-
