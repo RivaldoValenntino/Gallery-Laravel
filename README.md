@@ -14,5 +14,14 @@ Gallery Photo RPL was built with Laravel Filament including TALL STACK(Tailwind,
 ![Screenshot (158)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/27f696f2-1d2c-4bc9-b492-473c33781274)
 ![Screenshot (160)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/e5d18a9c-0e03-4d4f-99f7-4656021c2d2a)
 
+Responsive Mode 
+
+![iPhone-13-PRO-127 0 0 1 (1)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/8af1de67-be39-4eff-b868-f3d4a44aad32)
+![iPhone-13-PRO-127 0 0 1](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/712b3d2a-c39b-4d96-942d-0ce712061342)
+![iPhone-13-PRO-127 0 0 1 (6)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/c4ce92d1-e44b-4f7d-b380-db0e7d29d8c3)
+![iPhone-13-PRO-127 0 0 1 (5)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/294a9fe7-b27a-4a94-a41c-bbb3b1220334)
+![iPhone-13-PRO-127 0 0 1 (4)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/a48d0ab0-8416-439b-ad2d-4665e4d8ac0f)
+
+
 
 
