@@ -21,7 +21,11 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
-
+<style>
+    ::-webkit-scrollbar{
+        display: none;
+    }
+</style>
 <body>
     <div class="loader z-[999]">
         <div class="bg-white fixed inset-0 flex items-center justify-center h-screen z-[999] w-full">

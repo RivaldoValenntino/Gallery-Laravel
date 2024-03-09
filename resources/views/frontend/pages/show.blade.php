@@ -57,6 +57,9 @@
                             <div class="text-sm">
                                 <a href="/photos?author={{ $photo->user->username }}"
                                     class="text-gray-900 font-semibold leading-none hover:text-indigo-600">{{ $photo->user->name }}</a>
+                                    <a href="/photos?author={{ $photo->user->username }}" class="text-gray-600 block">
+                                        {{ '@' . $photo->user->username }}
+                                    </a>
                                 <p class="text-gray-600">
                                     @if ($photo->created_at->diffInDays() > 0)
                                         {{ $photo->created_at->format('F j, Y | g:i A') }}
@@ -79,7 +82,7 @@
 
                 </div>
             </div>
-            <h1 class="lg:text-2xl text-xl font-bold text-center mt-4 mb-2">{{ $allPhoto === null ? 'Photos You May Like' : 'No suggested photos are available' }}</h1>
+            <h1 class="lg:text-2xl text-xl font-bold text-center mt-4 mb-2">{{ $allPhoto->count() > 0 ? 'Photos You May Like' : 'No suggested photos are available' }}</h1>
             <div class="px-2 mr-2 md:px-4 md:mr-4 lg:px-4 lg:mr-4 xl:mr-4 xl:px-4 pb-12 w-full">
                 <div
                     class="columns-2 gap-2 md:columns-3 lg:columns-3 xl:columns-6 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-8">

@@ -9,6 +9,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Illuminate\Support\Str;
 use Filament\Forms\Set;
+use Filament\Forms\Components\Section;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
@@ -29,21 +30,26 @@ class CategoryResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                Forms\Components\TextInput::make('name')
+        ->schema([
+            Section::make()->schema([
+                 Forms\Components\TextInput::make('name')
                     ->required()
             ->maxLength(255)
             ->live(onBlur: true)
             ->afterStateUpdated(function (Set $set, $state) {
                 $set('slug', Str::slug($state));
             }),
-            Forms\Components\FileUpload::make('cover')
+            Forms\Components\Textarea::make('deskripsi')
+                    ->label('Description')
                     ->maxLength(255),
+            Forms\Components\FileUpload::make('cover')
+                    ->label('Cover'),
                 Forms\Components\TextInput::make('slug')
                     ->required()
             ->unique(Category::class, 'slug', ignoreRecord: true)
                     ->maxLength(255),
-            ]);
+            ])
+        ]);
     }
 
     public static function table(Table $table): Table

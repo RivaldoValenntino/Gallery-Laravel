@@ -50,7 +50,7 @@ class HomeController extends Controller
 
         if (request('author')) {
             $author = User::firstWhere('username', request('author'));
-            $title = 'Posted by ' . $author->name;
+            $title = 'Posted by @'.$author->username;
         }
         if (request('tag')) {
             $title = 'Tag : ' . ucfirst(request('tag'));

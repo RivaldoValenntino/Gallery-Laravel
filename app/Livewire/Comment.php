@@ -9,7 +9,7 @@ use Yoeunes\Toastr\Facades\Toastr;
 
 class Comment extends Component
 {
-    public $isi_komentar, $isi_komentar_edit, $edit_comment_id, $photo;
+    public $isi_komentar, $isi_komentar_edit, $edit_comment_id, $photo, $comment_id, $isi_komentar_reply;
 
 
     public function mount($id)
@@ -20,7 +20,7 @@ class Comment extends Component
     public function render()
     {
         return view('livewire.comment', [
-            'comments' => ModelsComment::where('photo_id', $this->photo->id)->with('user')->latest()->get(),
+            'comments' => ModelsComment::where('photo_id', $this->photo->id)->with(['user','childrens'])->whereNull('comment_id')->latest()->get(),
             'total_comments' => ModelsComment::where('photo_id', $this->photo->id)->count()
         ]);
     }
@@ -39,12 +39,38 @@ class Comment extends Component
         ]);
 
         if ($comment) {
-            $this->isi_komentar = '';
+            $this->isi_komentar = NULL;
+            $this->comment_id = NULL;
             Toastr::success('Komentar Berhasil Ditambahkan', 'Success');
             return redirect()->back();
         }
     }
+    public function selectReply($id){
+        $this->comment_id = $id;
+        $this->isi_komentar_reply = NULL;
+    }
 
+    public function reply(){
+        $this->validate([
+            'isi_komentar_reply' => 'required'
+        ], [
+            'isi_komentar_reply.required' => 'Komentar tidak boleh kosong'
+        ]);
+        $comment = ModelsComment::find($this->comment_id);
+        $comment = ModelsComment::create([
+            'isi_komentar' => $this->isi_komentar_reply,
+            'photo_id' => $this->photo->id,
+            'user_id' => auth()->user()->id,
+            'comment_id' => $comment->comment_id ? $comment->comment_id : $comment->id
+        ]);
+
+        if ($comment) {
+            $this->isi_komentar_reply = NULL;
+            $this->comment_id = NULL;
+            Toastr::success('Komentar Berhasil Ditambahkan', 'Success');
+            return redirect()->back();
+        }
+    }
     public function selectEdit($id)
     {
         $comment = ModelsComment::find($id);
@@ -56,15 +82,18 @@ class Comment extends Component
     {
         $this->validate([
             'isi_komentar_edit' => 'required'
+        ],
+        [
+            'isi_komentar_edit.required' => 'Komentar tidak boleh kosong'
         ]);
         $comment = ModelsComment::find($this->edit_comment_id);
         $comment->isi_komentar = $this->isi_komentar_edit;
         $comment->save();
-        $this->edit_comment_id = null;
-        $this->isi_komentar_edit = '';
-
+        
         if ($comment) {
             Toastr::success('Edit Komentar Berhasil', 'Success');
+            $this->isi_komentar_edit = NULL;
+            $this->edit_comment_id = NULL;
             return redirect()->back();
         }
     }

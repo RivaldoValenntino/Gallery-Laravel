@@ -1,8 +1,6 @@
 <?php
 
-use App\Filament\Pages\AlbumDetail;
-use App\Filament\Pages\ViewAlbumDetail;
-use App\Models\User;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,6 +29,4 @@ Route::get('/login', function () {
     return redirect(route('filament.admin.auth.login'));
 })->name('login'); // fix filament route login
 
-Route::fallback(function () {
-    return view('frontend.pages.403');
-}); // if no route found show error page
+Route::fallback(function () { return view('errors.404'); }); // if no route found show error page

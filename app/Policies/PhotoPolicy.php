@@ -21,7 +21,7 @@ class PhotoPolicy
      */
     public function view(User $user, Photo $photo): bool
     {
-        return $user->id === $photo->user_id;
+        return $user->id === $photo->user_id || $user->is_admin;
     }
 
     /**
