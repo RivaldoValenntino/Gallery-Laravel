@@ -23,5 +23,19 @@ Responsive Mode
 ![iPhone-13-PRO-127 0 0 1 (4)](https://github.com/RivaldoValenn/Gallery-Laravel/assets/118146590/a48d0ab0-8416-439b-ad2d-4665e4d8ac0f)
 
 
+## Installation
 
+Open project and run this command
+
+```
+$ composer install 
+```
+also run
+```
+$ npm install
+```
+
+- Require PHP ^8.2
+- Node JS v21.5.0
+- NPM v10.2.4
 
