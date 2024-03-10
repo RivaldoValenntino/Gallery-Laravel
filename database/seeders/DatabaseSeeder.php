@@ -8,6 +8,7 @@ use App\Models\User;
 use App\Models\Category;
 use GuzzleHttp\Promise\Create;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -23,70 +24,77 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        // Category::create([
-        //     'name' => 'Music',
-        //     'slug' => 'music'
-        // ]);
-        // Category::create([
-        //     'name' => 'Lifestyle',
-        //     'slug' => 'lifestyle'
-        // ]);
-        // Category::create([
-        //     'name' => 'Game',
-        //     'slug' => 'game'
-        // ]);
-        // Category::create([
-        //     'name' => 'Kpop',
-        //     'slug' => 'kpop'
-        // ]);
-        // Category::create([
-        //     'name' => 'Rock',
-        //     'slug' => 'rock'
-        // ]);
-        // Category::create([
-        //     'name' => 'Japan',
-        //     'slug' => 'japan'
-        // ]);
-        // Category::create([
-        //     'name' => 'Anime',
-        //     'slug' => 'anime'
-        // ]);
-        // Category::create([
-        //     'name' => 'Techonology',
-        //     'slug' => 'techonology'
-        // ]);
-        // Category::create([
-        //     'name' => 'Sains',
-        //     'slug' => 'sains'
-        // ]);
-        // Category::create([
-        //     'name' => 'Nature',
-        //     'slug' => 'nature'
-        // ]);
-        // Category::create([
-        //     'name' => 'Food',
-        //     'slug' => 'food'
-        // ]);
-        // Category::create([
-        //     'name' => 'Travel',
-        //     'slug' => 'travel'
-        // ]);
-        // Category::create([
-        //     'name' => 'Health',
-        //     'slug' => 'health'
-        // ]);
-        // Category::create([
-        //     'name' => 'Sports',
-        //     'slug' => 'sports'
-        // ]);
-        // Category::create([
-        //     'name' => 'Art',
-        //     'slug' => 'art'
-        // ]);
-        // Category::create([
-        //     'name' => 'Entertainment',
-        //     'slug' => 'entertainment'
-        // ]);
+        User::create([
+            'name' => 'Admin Gallery',
+            'username' => 'admin_gallery',
+            'email' => 'foxkitsune33@gmail.com',
+            'password' => Hash::make('admin123'),
+            'roles' => 'admin'
+        ]);
+        Category::create([
+            'name' => 'Music',
+            'slug' => 'music'
+        ]);
+        Category::create([
+            'name' => 'Lifestyle',
+            'slug' => 'lifestyle'
+        ]);
+        Category::create([
+            'name' => 'Game',
+            'slug' => 'game'
+        ]);
+        Category::create([
+            'name' => 'Kpop',
+            'slug' => 'kpop'
+        ]);
+        Category::create([
+            'name' => 'Rock',
+            'slug' => 'rock'
+        ]);
+        Category::create([
+            'name' => 'Japan',
+            'slug' => 'japan'
+        ]);
+        Category::create([
+            'name' => 'Anime',
+            'slug' => 'anime'
+        ]);
+        Category::create([
+            'name' => 'Techonology',
+            'slug' => 'techonology'
+        ]);
+        Category::create([
+            'name' => 'Sains',
+            'slug' => 'sains'
+        ]);
+        Category::create([
+            'name' => 'Nature',
+            'slug' => 'nature'
+        ]);
+        Category::create([
+            'name' => 'Food',
+            'slug' => 'food'
+        ]);
+        Category::create([
+            'name' => 'Travel',
+            'slug' => 'travel'
+        ]);
+        Category::create([
+            'name' => 'Health',
+            'slug' => 'health'
+        ]);
+        Category::create([
+            'name' => 'Sports',
+            'slug' => 'sports'
+        ]);
+        Category::create([
+            'name' => 'Art',
+            'slug' => 'art'
+        ]);
+        Category::create([
+            'name' => 'Entertainment',
+            'slug' => 'entertainment'
+        ]);
    
     }
 }
