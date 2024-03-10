@@ -2,7 +2,7 @@
 
 @section('content')
    <section class="mt-16 py-8 flex justify-center items-center">
-    <div class="container overflow-hidden grid grid-cols-1 lg:grid-cols-3 gap-5 px-10">
+    <div class="container overflow-hidden grid grid-cols-1 lg:grid-cols-4 gap-5 px-10">
         @foreach ($categories as $category)
         <a href="/photos?category={{ $category->slug }}">
             <article class="relative overflow-hidden rounded-lg shadow-xl transition hover:shadow-lg">

@@ -24,13 +24,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        User::create([
-            'name' => 'Admin Gallery',
-            'username' => 'admin_gallery',
-            'email' => 'foxkitsune33@gmail.com',
-            'password' => Hash::make('admin123'),
-            'roles' => 'admin'
-        ]);
+    
         Category::create([
             'name' => 'Music',
             'slug' => 'music'
