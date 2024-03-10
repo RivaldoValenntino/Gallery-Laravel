@@ -70,3 +70,4 @@ document.getElementById("dropdown").addEventListener("click", function (event) {
         window.location.href = currentUrl.href;
     }
 });
+

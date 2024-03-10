@@ -1,22 +1,22 @@
 @extends('frontend.layouts.app')
 @section('content')
-    <section class="mt-20 pb-20 h-screen" />
+    <section class="mt-20 pb-20" />
     <div class="flex justify-center items-center w-full">
         {{-- Form Search --}}
         @include('components.form')
         {{-- End Form --}}
     </div>
-    <h1 class="text-2xl font-semibold px-6 mt-4 font-nunito">{{ $title }}</h1>
-    <div class="flex px-6 justify-end">
+    <div class="flex justify-between mt-4">
+        <h1 class="text-xl font-semibold px-4 mt-4 font-nunito">{{ $title }}</h1>
         @include('components.dropdown-filter')
     </div>
     <div class="px-2 mr-2 md:px-4 md:mr-4 lg:px-4 lg:mr-4 xl:mr-4 xl:px-4 wrapper-photos">
         <div
-            class="columns-2 gap-2 pt-2 md:columns-3 lg:columns-3 xl:columns-6 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-8">
+            class="columns-2 gap-2 pt-2 md:columns-3 lg:columns-3 xl:columns-5 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-8">
             @if ($photos->count() > 0)
                 @foreach ($photos as $photo)
                     <a href="/photos/{{ $photo->slug }}" class="w-full">
-                        <div class="skeleton-loading">
+                        <div class="skeleton-loading reveal">
                             <img class="h-auto max-w-full rounded-xl dark:bg-gray-500 m-2 hover:scale-90 transition duration-300 hover:brightness-75"
                                 data-src="{{ asset('storage/' . $photo->gambar . '') }}" alt="">
                         </div>

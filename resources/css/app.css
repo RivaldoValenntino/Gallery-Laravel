@@ -37,12 +37,11 @@ textarea{
 }
 
 body.full-screen {
-    overflow: hidden; /* Menonaktifkan scroll */
+    overflow: hidden; 
 }
 
 #img-viewer {
-    z-index: 1001; /* Pastikan modal berada di atas elemen lain */
-    /* Tetapkan properti lain sesuai kebutuhan Anda */
+    z-index: 1001; 
 }
 
 #img-viewer {

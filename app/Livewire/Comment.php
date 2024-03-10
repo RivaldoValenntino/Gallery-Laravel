@@ -40,7 +40,6 @@ class Comment extends Component
 
         if ($comment) {
             $this->isi_komentar = NULL;
-            $this->comment_id = NULL;
             Toastr::success('Komentar Berhasil Ditambahkan', 'Success');
             return redirect()->back();
         }

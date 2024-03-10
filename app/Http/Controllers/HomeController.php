@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $searchTerm = [
             'search' => request('search'),
@@ -35,8 +35,8 @@ class HomeController extends Controller
                 $query->latest();
                 break;
         }
-
         $photos = $query->get();
+        
         $title = 'All Photos';
 
         if (request('search')) {

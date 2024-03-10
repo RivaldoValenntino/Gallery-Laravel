@@ -17,15 +17,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap"
         rel="stylesheet">
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
-    <script src="https://unpkg.com/infinite-scroll@4/dist/infinite-scroll.pkgd.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
 </head>
 <style>
-    ::-webkit-scrollbar{
+    ::-webkit-scrollbar {
         display: none;
     }
 </style>
+
 <body>
     <div class="loader z-[999]">
         <div class="bg-white fixed inset-0 flex items-center justify-center h-screen z-[999] w-full">
@@ -39,7 +39,7 @@
             </div>
         </div>
     </div>
-    <div class="flex h-screen flex-col justify-between container font-noto-sans">
+    <div class="flex flex-col justify-between container font-noto-sans">
         <div>
             @include('frontend.partials.navbar')
             <main>
@@ -47,7 +47,7 @@
             </main>
         </div>
     </div>
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
 </body>
 
 </html>

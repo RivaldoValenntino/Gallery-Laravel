@@ -15,11 +15,11 @@
                         <img class="w-8 h-8 rounded-full" src="{{ asset(Auth::user()->avatar) }}"
                             alt="{{ Auth::user()->name }}">
                     @elseif (Auth::user()->avatar !== '/storage/')
-                        <img class="w-8 h-8 rounded-full" src="{{ asset('logo/default-avatar.png') }}" alt="default">
+                        <img class="w-8 h-8 rounded-full" src="{{ asset('img/default-avatar.png') }}" alt="default">
                     @endif
                 @endauth
                 @guest
-                    <img class="w-8 h-8 rounded-full" src="{{ asset('logo/default-avatar.png') }}" alt="user photo">
+                    <img class="w-8 h-8 rounded-full" src="{{ asset('img/default-avatar.png') }}" alt="user photo">
                 @endguest
             </button>
             <!-- Dropdown menu -->
