@@ -4,7 +4,7 @@
 
 Gallery Photo RPL was built with Laravel Filament Version 3 including TALL STACK (Tailwind,AlpineJS,Laravel,Livewire). This Application was created for UKK (Uji Kompetensi Keahlian) Bakti Nusantara 666 High Vocational Bandung, March 2024
 
-## Installation
+## Installation Guide
 
 Open project and run this command
 
@@ -14,6 +14,10 @@ $ composer install
 also run
 ```
 $ npm install
+```
+and
+```
+$ php artisan:migrate --seed
 ```
 
 - Require PHP ^8.2
