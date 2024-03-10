@@ -2,7 +2,7 @@
 
 ## About Application
 
-Gallery Photo RPL was built with Laravel Filament Version 3 including TALL STACK (Tailwind,AlpineJS,Laravel,Livewire). This Application was created for UKK (Uji Kompetensi Keahlian) Bakti Nusantara High 666 Vocational Bandung, March 2024
+Gallery Photo RPL was built with Laravel Filament Version 3 including TALL STACK (Tailwind,AlpineJS,Laravel,Livewire). This Application was created for UKK (Uji Kompetensi Keahlian) Bakti Nusantara 666 High Vocational Bandung, March 2024
 
 ## Installation
 
