@@ -18,7 +18,7 @@
         rel="stylesheet">
     <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+    @livewirestyles
 </head>
 <style>
     ::-webkit-scrollbar {
@@ -39,14 +39,21 @@
             </div>
         </div>
     </div>
-    <div class="flex flex-col justify-between container font-noto-sans">
+    <div class="container flex flex-col justify-between font-noto-sans">
         <div>
-            @include('frontend.partials.navbar')
+            @livewire('partials.header')
             <main>
-                @yield('content')
+                {{ $slot }}
             </main>
         </div>
     </div>
+    @livewireScripts
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/solid.js"
+        integrity="sha384-/BxOvRagtVDn9dJ+JGCtcofNXgQO/CCCVKdMfL115s3gOgQxWaX/tSq5V8dRgsbc" crossorigin="anonymous">
+    </script>
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/fontawesome.js"
+        integrity="sha384-dPBGbj4Uoy1OOpM4+aRGfAOc0W37JkROT+3uynUgTHZCHZNMHfGXsmmvYTffZjYO" crossorigin="anonymous">
+    </script>
     <script src="{{ asset('js/script.js') }}"></script>
 </body>
 

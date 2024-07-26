@@ -2,25 +2,65 @@
 
 namespace App\Http\Controllers;
 
+use App\Livewire\LoadMore;
 use App\Models\Album;
 use App\Models\Category;
 use App\Models\Photo;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class HomeController extends Controller
 {
     public function index(Request $request)
     {
+
         $searchTerm = [
             'search' => request('search'),
             'category' => request('category'),
             'author' => request('author'),
             'tag' => request('tag'),
         ];
+        $query = Photo::with(['categories', 'user'])
+            ->search($searchTerm)
+            ->where('status', 1);
 
-        $query = Photo::with(['categories', 'user'])->search($searchTerm)->where('status', 1);
+        $title = $this->generateTitle();
 
+        $this->applySortCriteria($query);
+
+        $photos = $query->paginate(10);
+        if ($request->ajax()) {
+            $view = view('frontend.load.photos', compact('photos'))->render();
+            return response()->json(['html' => $view]);
+        }
+        return view('frontend.pages.index', [
+            "title" => $title,
+            "photos" => $photos,
+        ]);
+    }
+
+    private function generateTitle()
+    {
+        $title = 'All Photos';
+
+        if (request('search')) {
+            $title = 'Search results for : ' . request('search');
+        } elseif (request('category')) {
+            $category = Category::firstWhere('slug', request('category'));
+            $title = 'Category : ' . optional($category)->name;
+        } elseif (request('author')) {
+            $author = User::firstWhere('username', request('author'));
+            $title = 'Posted by @' . optional($author)->username;
+        } elseif (request('tag')) {
+            $title = 'Tag : ' . ucfirst(request('tag'));
+        }
+
+        return $title;
+    }
+
+    private function applySortCriteria($query)
+    {
         switch (request('sort_by')) {
             case 'likes':
                 $query->withCount('likes')->orderByDesc('likes_count');
@@ -35,30 +75,6 @@ class HomeController extends Controller
                 $query->latest();
                 break;
         }
-        $photos = $query->get();
-        
-        $title = 'All Photos';
-
-        if (request('search')) {
-            $title = 'Search results for : ' . request('search');
-        }
-
-        if (request('category')) {
-            $category = Category::firstWhere('slug', request('category'));
-            $title = 'Category : ' . $category->name;
-        }
-
-        if (request('author')) {
-            $author = User::firstWhere('username', request('author'));
-            $title = 'Posted by @'.$author->username;
-        }
-        if (request('tag')) {
-            $title = 'Tag : ' . ucfirst(request('tag'));
-        }
-        return view('frontend.pages.index', [
-            "title" => $title,
-            "photos" => $photos
-        ]);
     }
     public function show(Photo $photo)
     {
@@ -66,11 +82,11 @@ class HomeController extends Controller
         $photo->increment('views');
         $title = $photo->judul;
         $allPhoto = Photo::where('category_id', $photo->category_id)->whereNotIn('id', [$photo->id])
-        ->get();
+            ->get();
         return view('frontend.pages.show', compact('photo', 'title', 'allPhoto'));
     }
 
-  
+
     public function categoriesPage()
     {
         $categories = Category::with('photos')->get();

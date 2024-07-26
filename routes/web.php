@@ -1,6 +1,14 @@
 <?php
 
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SocialiteController;
+use App\Livewire\AlbumsPage;
+use App\Livewire\CategoriesPage;
+use App\Livewire\HomePage;
+use App\Livewire\PhotoDisplay;
+use App\Livewire\PhotoGallery;
+use App\Livewire\PhotoList;
+use App\Livewire\SinglePhoto;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,17 +22,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/photos', [\App\Http\Controllers\HomeController::class, 'index'])->name('allPhotos'); // all photos page
-Route::get('/photos/{photo:slug}', [\App\Http\Controllers\HomeController::class, 'show'])->name('showPhoto'); // single photo detail page
-Route::get('/categories', [\App\Http\Controllers\HomeController::class, 'categoriesPage'])->name('categoriesPages'); // list of categories page
-Route::get('/', function (){
-    $title = 'Home';
-    return view('frontend.pages.home', compact('title'));
-}); // home landing page
-Route::get('/home', function (){
-    $title = 'Home';
-    return view('frontend.pages.home', compact('title')); // home landing page
-});
+Route::get('/', PhotoList::class);
+Route::get('/photos', PhotoList::class)->name('allPhotos');
+// all photos page
+Route::get('/photos/{slug}', SinglePhoto::class)->name('showPhoto');
+// single photo detail page
+Route::get('/albums', AlbumsPage::class)->name('albumsPage');
+Route::get('/categories', CategoriesPage::class)->name('categoriesPages'); // list of categories page
+// Route::get('/home', HomePage::class)->name('homepage');
 Route::get('/login', function () {
     return redirect(route('filament.admin.auth.login'));
 })->name('login'); // fix filament route login

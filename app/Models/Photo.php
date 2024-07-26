@@ -46,7 +46,8 @@ class Photo extends Model
     {
         return $this->belongsToMany(User::class, 'like_photo')->withTimestamps();
     }
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class, 'photo_id');
     }
     public function scopeSearch($query, array $searchTerm)
@@ -70,5 +71,17 @@ class Photo extends Model
                 $query->where('username', $author);
             });
         });
+    }
+    public function scopeMostCommented($query)
+    {
+        return $query->withCount('comments')->orderByDesc('comments_count');
+    }
+    public function scopeMostLiked($query)
+    {
+        return $query->withCount('likes')->orderByDesc('likes_count');
+    }
+    public function scopeLatestPhotos($query)
+    {
+        return $query->latest();
     }
 }

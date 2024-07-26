@@ -26,8 +26,8 @@ class Login extends AuthLogin
     protected function getLoginFormComponent(): Component
     {
         return TextInput::make('login')
-        ->label('Username or    Email Address')
-        ->required()
+            ->label('Username or Email Address')
+            ->required()
             ->autocomplete()
             ->autofocus()
             ->extraInputAttributes(['tabindex' => 1]);
@@ -46,4 +46,4 @@ class Login extends AuthLogin
             'data.login' => __('filament-panels::pages/auth/login.messages.failed'),
         ]);
     }
-}   
+}

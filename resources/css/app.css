@@ -2,8 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
-textarea{
+textarea {
     resize: none;
 }
 
@@ -18,7 +17,7 @@ textarea{
     display: none;
 }
 
-.img-source:hover .zoom-btn{
+.img-source:hover .zoom-btn {
     display: block;
 }
 
@@ -37,11 +36,11 @@ textarea{
 }
 
 body.full-screen {
-    overflow: hidden; 
+    overflow: hidden;
 }
 
 #img-viewer {
-    z-index: 1001; 
+    z-index: 1001;
 }
 
 #img-viewer {
@@ -98,40 +97,50 @@ body {
     padding: 0;
     box-sizing: border-box;
 }
-.skeleton-loading {
+/* Skeleton loading styles */
+.skeleton {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
     position: relative;
     overflow: hidden;
 }
 
-.skeleton-loading::before {
+.skeleton::before {
     content: "";
     display: block;
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
+    left: -150%;
     height: 100%;
-    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
-    background-size: 200% 100%;
-    border-radius: 12px;
+    width: 150%;
+    background: linear-gradient(
+        to right,
+        #e0e0e0 0%,
+        #f0f0f0 50%,
+        #e0e0e0 100%
+    );
     animation: loading 1.5s infinite;
 }
 
 @keyframes loading {
     0% {
-        background-position: -200% 0;
+        left: -150%;
+    }
+    50% {
+        left: -50%;
     }
     100% {
-        background-position: 200% 0;
+        left: 100%;
     }
 }
 
-
 @media only screen and (min-width: 800px) {
-    .wrapper-photos{
+    .wrapper-photos {
         padding: 2rem 4rem;
     }
-    .wrapper-photos{
+    .wrapper-photos {
         margin-right: 2rem;
     }
 }

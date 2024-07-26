@@ -65,7 +65,7 @@ class User extends Authenticatable implements MustVerifyEmail
             'name' => $input['name'],
             'email' => $input['email'],
             'password' => bcrypt($input['password']),
-            'username' => $input['username'], 
+            'username' => $input['username'],
         ]);
     }
     public function sendPasswordResetNotification($token): void
@@ -103,9 +103,10 @@ class User extends Authenticatable implements MustVerifyEmail
             }
         });
     }
-    
-    
-    public function getAvatarAttribute(){
+
+
+    public function getAvatarAttribute()
+    {
         return Storage::url($this->attributes['avatar']);
     }
 
@@ -121,6 +122,12 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->belongsToMany(Photo::class, 'like_photo')->withTimestamps();
     }
+
+    public function totalLikes()
+    {
+        return $this->photo()->withCount('likes')->get()->sum('likes_count');
+    }
+
 
     public function hasLiked(Photo $photo)
     {

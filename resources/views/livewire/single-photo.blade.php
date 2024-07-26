@@ -1,19 +1,19 @@
-@extends('frontend.layouts.app')
-@section('content')
-    <section class="grid place-content-center lg:mt-28 mt-20 pb-2">
+<div>
+    <section class="grid pb-2 mt-20 place-content-center lg:mt-28">
         <div class="px-4">
-            <div class="flex flex-col lg:flex-row lg:space-x-6 max-w-screen-lg mx-auto p-6 bg-white rounded-lg shadow-lg">
+            <div
+                class="flex flex-col max-w-screen-lg p-6 mx-auto bg-white rounded-lg shadow-lg lg:flex-row lg:space-x-6">
                 <div id="img-viewer">
                     <span class="close" onclick="close_modal()">&times;</span>
                     <img class="modal-content" id="full-image">
                 </div>
-                <div class="lg:w-1/2 relative group font-nunito">
+                <div class="relative lg:w-1/2 group font-nunito">
                     <img src="{{ asset('storage/' . $photo->gambar . '') }}" alt="{{ $photo->judul }}"
                         class="w-full h-full object-cover rounded-lg img-source group-hover:brightness-[0.3] transition duration-300">
-                    <div class="btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col gap-4">
+                    <div class="absolute flex flex-col gap-4 -translate-x-1/2 -translate-y-1/2 btn top-1/2 left-1/2">
                         <button
-                            class="hidden bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded group-hover:flex btn-zoom">
-                            <div class="flex justify-center text-center items-center">
+                            class="hidden px-4 py-2 font-bold text-gray-800 bg-gray-300 rounded hover:bg-gray-400 group-hover:flex btn-zoom">
+                            <div class="flex items-center justify-center text-center">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-2" viewBox="0 0 50 50">
                                     <path
                                         d="M 21 3 C 11.601563 3 4 10.601563 4 20 C 4 29.398438 11.601563 37 21 37 C 24.355469 37 27.460938 36.015625 30.09375 34.34375 L 42.375 46.625 L 46.625 42.375 L 34.5 30.28125 C 36.679688 27.421875 38 23.878906 38 20 C 38 10.601563 30.398438 3 21 3 Z M 21 7 C 28.199219 7 34 12.800781 34 20 C 34 27.199219 28.199219 33 21 33 C 13.800781 33 8 27.199219 8 20 C 8 12.800781 13.800781 7 21 7 Z">
@@ -23,10 +23,10 @@
                             </div>
                         </button>
                         <button
-                            class="hidden bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded group-hover:flex">
+                            class="hidden px-4 py-2 font-bold text-gray-800 bg-gray-300 rounded hover:bg-gray-400 group-hover:flex">
                             <a href="{{ asset('storage/' . $photo->gambar . '') }}" download="{{ $photo->judul }}"
-                                class="flex justify-center text-center items-center">
-                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                class="flex items-center justify-center text-center">
+                                <svg class="w-4 h-4 mr-2 fill-current" xmlns="http://www.w3.org/2000/svg"
                                     viewBox="0 0 20 20">
                                     <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
                                 </svg>
@@ -37,29 +37,29 @@
                 </div>
 
                 {{-- Informasi Foto --}}
-                <div class="lg:w-1/2 mt-6 lg:mt-0">
-                    <h2 class="text-2xl font-bold mb-2">{{ $photo->judul }}</h2>
-                    <p class="text-gray-700 mb-4">{{ $photo->deskripsi }}</p>
-                    <div class="tags mt-4">
+                <div class="mt-6 lg:w-1/2 lg:mt-0">
+                    <h2 class="mb-2 text-2xl font-bold">{{ $photo->judul }}</h2>
+                    <p class="mb-4 text-gray-700">{{ $photo->deskripsi }}</p>
+                    <div class="mt-4 tags">
                         @foreach ($photo->tags as $tag)
-                            <a class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2 hover:underline hover:font-bold"
+                            <a class="inline-block px-3 py-1 mb-2 mr-2 text-sm font-semibold text-gray-700 bg-gray-200 rounded-full hover:underline hover:font-bold"
                                 href="/photos?tag={{ $tag }}">#{{ $tag }}</a>
                         @endforeach
                     </div>
-                    <div class="flex items-center justify-between pb-12 pt-6">
-                        <div class="author flex">
+                    <div class="flex items-center justify-between pt-6 pb-12">
+                        <div class="flex author">
                             @if ($photo->user->avatar !== '/storage/')
-                                <img class="w-10 h-10 rounded-full mr-4" src="{{ asset($photo->user->avatar) }}">
+                                <img class="w-10 h-10 mr-4 rounded-full" src="{{ asset($photo->user->avatar) }}">
                             @else
-                                <img class="w-10 h-10 rounded-full mr-4" src="{{ asset('img/default-avatar.png') }}">
+                                <img class="w-10 h-10 mr-4 rounded-full" src="{{ asset('img/default-avatar.png') }}">
                             @endif
 
                             <div class="text-sm">
                                 <a href="/photos?author={{ $photo->user->username }}"
-                                    class="text-gray-900 font-semibold leading-none hover:text-indigo-600">{{ $photo->user->name }}</a>
-                                    <a href="/photos?author={{ $photo->user->username }}" class="text-gray-600 block">
-                                        {{ '@' . $photo->user->username }}
-                                    </a>
+                                    class="font-semibold leading-none text-gray-900 hover:text-indigo-600">{{ $photo->user->name }}</a>
+                                <a href="/photos?author={{ $photo->user->username }}" class="block text-gray-600">
+                                    {{ '@' . $photo->user->username }}
+                                </a>
                                 <p class="text-gray-600">
                                     @if ($photo->created_at->diffInDays() > 0)
                                         {{ $photo->created_at->format('F j, Y | g:i A') }}
@@ -69,8 +69,8 @@
                                 </p>
                             </div>
                         </div>
-                        <div class="flex gap-2 px-6 justify-center items-center">
-                            <span class="text-black flex gap-1">
+                        <div class="flex items-center justify-center gap-2 px-6">
+                            <span class="flex gap-1 text-black">
                                 <i class="bi bi-eye"></i> {{ $photo->views }}
                             </span>
                             <livewire:like-button :photo="$photo" :key="$photo->id" />
@@ -82,20 +82,21 @@
 
                 </div>
             </div>
-            <h1 class="lg:text-2xl text-xl font-bold text-center mt-4 mb-2">{{ $allPhoto->count() > 0 ? 'Photos You May Like' : 'No suggested photos are available' }}</h1>
-            <div class="px-2 mr-2 md:px-4 md:mr-4 lg:px-4 lg:mr-4 xl:mr-4 xl:px-4 pb-12 w-full">
+            <h1 class="mt-4 mb-2 text-xl font-bold text-center lg:text-2xl">
+                {{ $allPhoto->count() > 0 ? 'Photos You May Like' : 'No suggested photos are available' }}</h1>
+            <div class="w-full px-2 pb-12 mr-2 md:px-4 md:mr-4 lg:px-4 lg:mr-4 xl:mr-4 xl:px-4">
                 <div
                     class="columns-2 gap-2 md:columns-3 lg:columns-3 xl:columns-6 [&>img:not(:first-child)]:mt-5 lg:[&>img:not(:first-child)]:mt-8">
-                        @foreach ($allPhoto as $suggestedPhoto)
-                            <a href="/photos/{{ $suggestedPhoto->slug }}">
-                                <div>
-                                    <img class="max-w-full rounded-lg m-2 hover:scale-90 transition duration-300 hover:brightness-75"
-                                        src="{{ asset('storage/' . $suggestedPhoto->gambar . '') }}" alt="">
-                                </div>
-                            </a>
-                        @endforeach
+                    @foreach ($allPhoto as $suggestedPhoto)
+                        <a href="/photos/{{ $suggestedPhoto->slug }}">
+                            <div>
+                                <img class="max-w-full m-2 transition duration-300 rounded-lg hover:scale-90 hover:brightness-75"
+                                    src="{{ asset('storage/' . $suggestedPhoto->gambar . '') }}" alt="">
+                            </div>
+                        </a>
+                    @endforeach
                 </div>
             </div>
         </div>
     </section>
-@endsection
+</div>

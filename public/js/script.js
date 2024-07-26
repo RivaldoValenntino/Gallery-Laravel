@@ -70,4 +70,20 @@ document.getElementById("dropdown").addEventListener("click", function (event) {
         window.location.href = currentUrl.href;
     }
 });
+document.addEventListener("DOMContentLoaded", function () {
+    const dropdownButton = document.getElementById("dropdownDefaultButton");
+    const dropdownMenu = document.getElementById("dropdown");
+    const dropdownItems = dropdownMenu.querySelectorAll("button");
 
+    dropdownButton.addEventListener("click", function () {
+        dropdownMenu.classList.toggle("hidden");
+    });
+
+    dropdownItems.forEach((item) => {
+        item.addEventListener("click", function (event) {
+            const sortBy = event.target.id; // Ambil id tombol sebagai jenis sort by
+            Livewire.emit("sortBy", sortBy); // Kirim event Livewire dengan jenis sort by
+            dropdownMenu.classList.add("hidden"); // Tutup dropdown setelah dipilih
+        });
+    });
+});

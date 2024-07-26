@@ -14,7 +14,6 @@
         "joshembling/image-optimizer": "v1.2",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
-        "laravel/socialite": "^5.11",
         "laravel/tinker": "^2.8",
         "livewire/livewire": "^3.4",
         "yoeunes/toastr": "^2.3"

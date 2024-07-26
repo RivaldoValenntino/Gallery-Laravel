@@ -15,7 +15,7 @@ class LikeButton extends Component
     public function toggleLike()
     {
         if (auth()->guest()) {
-            return redirect('/dashboard/login')->with('status', true);
+            return redirect('/login')->with('status', true);
         }
         $user = auth()->user();
         if ($user->hasLiked($this->photo)) {

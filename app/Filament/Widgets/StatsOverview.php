@@ -21,6 +21,9 @@ class StatsOverview extends BaseWidget
             Stat::make('Albums', Album::where('user_id', $userId)->count())
                 ->description('Last 30 Days')
                 ->descriptionIcon('heroicon-o-rectangle-stack'),
+            Stat::make('Total Likes', User::find($userId)->totalLikes())
+                ->description('Last 30 Days')
+                ->descriptionIcon('heroicon-o-heart'),
         ];
     }
 }
